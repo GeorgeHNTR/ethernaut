@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-const { setupLevel } = require("./utils");
+const { setupLevel, abiEncodeWithSignature } = require("./utils");
 
 describe("Delegation", async function () {
     let deployer;
@@ -18,11 +18,6 @@ describe("Delegation", async function () {
     });
 
     it("Exploit", async function () {
-        function abiEncodeWithSignature(signature, ...params) { // similar to abi.encodeWithSignature in Solidity
-            const functionName = signature.split("(")[0].replace("function", "").trim();
-            return (new ethers.utils.Interface([signature])).encodeFunctionData(functionName, params);
-        }
-
         // Call fallback() on instance
         await player.sendTransaction({
             to: instance.address,

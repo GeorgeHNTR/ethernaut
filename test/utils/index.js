@@ -12,6 +12,12 @@ async function setupLevel(level, player, value) {
     };
 }
 
+function abiEncodeWithSignature(signature, ...params) { // similar to abi.encodeWithSignature in Solidity
+    const functionName = signature.split("(")[0].replace("function", "").trim();
+    return (new ethers.utils.Interface([signature])).encodeFunctionData(functionName, params);
+}
+
 module.exports = {
-    setupLevel
+    setupLevel,
+    abiEncodeWithSignature
 };
