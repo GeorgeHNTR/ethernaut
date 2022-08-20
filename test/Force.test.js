@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 const { setupLevel } = require("./utils");
 
-describe.only("Force", async function () {
+describe("Force", async function () {
     let deployer;
     let player;
     let factory;
