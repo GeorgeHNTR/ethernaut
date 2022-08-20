@@ -18,7 +18,9 @@ describe("CoinFlip", async function () {
     });
 
     it("Exploit", async function () {
-
+        const attacker = await (await ethers.getContractFactory("CoinFlipAttack")).deploy(instance.address);
+        for (let i = 0; i < 10; i++)
+            await attacker.flip();
     });
 
     after(async function () {
