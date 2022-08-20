@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.0;
 
+import "hardhat/console.sol";
+
 contract Delegate {
     address public owner;
 
@@ -27,5 +29,6 @@ contract Delegation {
         if (result) {
             this;
         }
+        console.log(msg.sender == owner);
     }
 }
