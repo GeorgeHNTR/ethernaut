@@ -18,7 +18,8 @@ describe("Fallout", async function () {
     });
 
     it("Exploit", async function () {
-
+        // Simply call misspelled constructor
+        await instance.connect(player).Fal1out();
     });
 
     after(async function () {
