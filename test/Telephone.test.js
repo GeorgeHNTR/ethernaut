@@ -18,7 +18,7 @@ describe("Telephone", async function () {
     });
 
     it("Exploit", async function () {
-
+        await (await (ethers.getContractFactory("TelephoneAttack"))).connect(player).deploy(instance.address, player.address, player.address);
     });
 
     after(async function () {
