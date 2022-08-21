@@ -18,7 +18,8 @@ describe("Elevator", async function () {
     });
 
     it("Exploit", async function () {
-
+        const attacker = await (await ethers.getContractFactory("ElevatorAttack")).deploy();
+        await attacker.attack(instance.address);
     });
 
     after(async function () {
