@@ -18,7 +18,21 @@ describe("Denial", async function () {
     });
 
     it("Exploit", async function () {
+        // Another tricky level that took me quite a while
 
+        // The external call to the `partner` address seems as a vulnerable part here,
+        // but how could it revert if the contract doesn't check for the return value of the txn.
+
+        // Hmmm...
+
+        // Although we can't revert the txn, we can implement an attacker contract (which will be the `partner`)
+        // which spends all gas and makes it impossible to continue the execution of the txn
+
+        // That's it!
+
+        await (await ethers.getContractFactory("DenialAttack")).deploy(instance.address);
+
+        // Very interesting DoS attack!
     });
 
     after(async function () {
