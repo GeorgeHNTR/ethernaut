@@ -18,7 +18,12 @@ describe("Shop", async function () {
     });
 
     it("Exploit", async function () {
-
+        // This one is similar to level 11 Elevator
+        // The only difference is the `view` function modifier,
+        // which means we should not rely on changing state in the attacker's contract,
+        // but maybe in the instance's one
+        const attacker = await (await ethers.getContractFactory("ShopAttack")).deploy(instance.address);
+        await attacker.attack();
     });
 
     after(async function () {
